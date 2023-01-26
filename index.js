@@ -1,12 +1,13 @@
 const display = document.querySelector("p span");
 
-let seconds;
-if (sessionStorage.getItem("seconds")) {
+let seconds = parseInt(sessionStorage.getItem("seconds")) || 0;
+let tens = parseInt(sessionStorage.getItem("tens")) || 0;
+
+/* if (sessionStorage.getItem("seconds")) {
   seconds = sessionStorage.getItem("seconds");
 } else {
   seconds = 0;
-}
-
+} */
 /* let decimi;
 if (sessionStorage.getItem("decimi")) {
   seconds = sessionStorage.getItem("decimi");
@@ -15,9 +16,15 @@ if (sessionStorage.getItem("decimi")) {
 } */
 
 const counter = () => {
-  seconds += 1;
-  display.innerHTML = `${seconds}`;
+  tens += 1;
+  if (tens >= 10) {
+    tens = 0;
+    seconds += 1;
+  }
+
+  display.innerHTML = `${seconds} : ${tens}`;
   sessionStorage.setItem("seconds", seconds);
+  sessionStorage.setItem("tens", tens);
 };
 
-setInterval(counter, 1000);
+setInterval(counter, 100);
